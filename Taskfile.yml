@@ -6,7 +6,7 @@ version: '3'
 vars:
   ARCH: '{{ .ARCH | default "arm64" }}'
   CROSS_COMPILE: '{{ .CROSS_COMPILE | default "aarch64-linux-gnu-" }}'
-
+  DEFCONFIG: '{{ .DEFCONFIG | default "t3_gem_o1_hardened_defconfig" }}'
 tasks:
 
   deps:
@@ -15,12 +15,20 @@ tasks:
 
   init:
     cmds:
-      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} t3_gem_o1_defconfig
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} {{.DEFCONFIG}}
 
   menuconfig:
     cmds:
-      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} menuconfig
+      - MENUCONFIG_COLOR=mono make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} menuconfig
+
+  savedefconfig:
+    cmds:
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} savedefconfig
 
   clean:
     cmds:
       - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} mrproper
+
+  build:
+    cmds:
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}}
