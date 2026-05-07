@@ -1,0 +1,26 @@
+# T3 Foundation Gemstone Project [t3gemstone.org]
+# SPDX-License-Identifier: Apache-2.0
+
+version: '3'
+
+vars:
+  ARCH: '{{ .ARCH | default "arm64" }}'
+  CROSS_COMPILE: '{{ .CROSS_COMPILE | default "aarch64-linux-gnu-" }}'
+
+tasks:
+
+  deps:
+    cmds:
+      - sudo apt-get install bc bison build-essential cpio flex gcc-aarch64-linux-gnu libncurses-dev libssl-dev make pkg-config
+
+  init:
+    cmds:
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} t3_gem_o1_defconfig
+
+  menuconfig:
+    cmds:
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} menuconfig
+
+  clean:
+    cmds:
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} mrproper
