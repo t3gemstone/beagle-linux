@@ -250,7 +250,6 @@ dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-dsi-waveshare-8-0inch-panel.dtbo
 dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-dsi-waveshare-8-8inch-panel.dtbo
 dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-gpio-fan.dtbo
 dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-i2c1-400000.dtbo
-dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-pinmux.dtsi
 dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-pwm-ecap0-gpio12.dtbo
 dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-pwm-ecap1-gpio16.dtbo
 dtb-$(CONFIG_ARCH_K3) += k3-am67a-t3-gem-o1-pwm-ecap2-gpio18.dtbo

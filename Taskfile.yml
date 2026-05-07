@@ -1,5 +1,4 @@
 # T3 Foundation Gemstone Project [t3gemstone.org]
-# SPDX-License-Identifier: Apache-2.0
 
 version: '3'
 
@@ -7,6 +6,7 @@ vars:
   ARCH: '{{ .ARCH | default "arm64" }}'
   CROSS_COMPILE: '{{ .CROSS_COMPILE | default "aarch64-linux-gnu-" }}'
   DEFCONFIG: '{{ .DEFCONFIG | default "t3_gem_o1_hardened_defconfig" }}'
+
 tasks:
 
   deps:
@@ -32,3 +32,10 @@ tasks:
   build:
     cmds:
       - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}}
+
+  dist:
+    cmds:
+      - mkdir -p dist/boot/overlays
+      - cp arch/{{.ARCH}}/boot/Image dist/boot/
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} INSTALL_MOD_PATH=$PWD/dist/ modules_install
+      - make -j$(nproc) ARCH={{.ARCH}} CROSS_COMPILE={{.CROSS_COMPILE}} INSTALL_DTBS_PATH=$PWD/dist/boot/overlays dtbs_install
